@@ -40,7 +40,8 @@ This is a RESTful API project for managing dog adoptions. It allows users to reg
 ├── app.js               # Main configuration file
 ├── package-lock.json    # Dependency lock file
 ├── package.json         # Project metadata
-└── README.md            # Documentation file
+└── README.md            # Documentation file 
+```
 
 ## API Endpoints
 
