@@ -41,3 +41,37 @@ This is a RESTful API project for managing dog adoptions. It allows users to reg
 ├── package-lock.json    # Dependency lock file
 ├── package.json         # Project metadata
 └── README.md            # Documentation file
+
+## API Endpoints
+
+### Users
+- **POST `/auth/register`**: Register a new user.  
+- **POST `/auth/login`**: Log in and obtain a JWT token.  
+- **GET `/users`**: Get all users (Admin only).  
+- **GET `/users/:id`**: Get user details by ID (Admin only).  
+- **DELETE `/users/:id`**: Delete a user by ID (Admin only).  
+
+---
+
+### Dogs
+- **GET `/dogs`**: Get all available dogs.  
+- **POST `/dogs`**: Add a new dog (Admin only).  
+- **PUT `/dogs/:id`**: Update dog information (Admin only).  
+- **DELETE `/dogs/:id`**: Remove a dog (Admin only).  
+
+---
+
+### Adoption Requests
+- **GET `/adoptions/user`**: Get all adoption requests for the logged-in user.  
+- **GET `/adoptions`**: Get all adoption requests (Admin only).  
+- **POST `/adoptions`**: Create a new adoption request.  
+- **PUT `/adoptions/:id`**: Update the status of an adoption request (Admin only).  
+- **DELETE `/adoptions/:id`**: Remove an adoption request (Admin only).  
+
+---
+
+### Shelters
+- **GET `/shelters`**: Get all shelters.  
+- **POST `/shelters`**: Add a new shelter (Admin only).  
+- **PUT `/shelters/:id`**: Update shelter information (Admin only).  
+- **DELETE `/shelters/:id`**: Remove a shelter (Admin only).  
