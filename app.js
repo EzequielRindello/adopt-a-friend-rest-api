@@ -4,8 +4,10 @@ const port = process.env.PORT || 3000;
 const database = require("./database/database.js");
 const bodyParser = require("body-parser");
 const createError = require("http-errors");
+const cors = require("cors");
 
 app.use(bodyParser.json());
+
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
   );
   next();
 });
+app.use(cors({ methods: ["GET", "POST", "DELETE", "UPDATE", "PUT", "PATCH"] }));
+app.use(cors({ origin: "*" }));
 app.use("/", require("./routes/index.js"));
 
 // Catch 404 and forward to error handler
