@@ -3,6 +3,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const database = require("./database/database.js");
 const bodyParser = require("body-parser");
+const createError = require("http-errors");
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
@@ -17,6 +18,23 @@ app.use((req, res, next) => {
   next();
 });
 app.use("/", require("./routes/index.js"));
+
+// Catch 404 and forward to error handler
+app.use((req, res, next) => {
+  next(createError(404, "Route not found"));
+});
+
+// Error handler middleware (must be at the end of all routes)
+app.use((err, req, res, next) => {
+  // If the error is not a HTTP error, we create one
+  if (!err.status) {
+    err = createError(500, err.message || "Internal Server Error");
+  }
+  // Send the response
+  const status = err.status || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).send(message);
+});
 
 // Connect to MongoDB
 database.intDb((err) => {
