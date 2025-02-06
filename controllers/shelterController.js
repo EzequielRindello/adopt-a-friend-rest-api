@@ -15,6 +15,7 @@ const shelterSchema = Joi.object({
 
 // GET method: Get all shelters
 const getAll = async (req, res, next) => {
+  //#swagger.tags = ['Shelters']
   try {
     const result = await mongodb
       .getDatabase()
@@ -33,6 +34,7 @@ const getAll = async (req, res, next) => {
 
 // GET method: Get a single shelter by ID
 const getSingle = async (req, res, next) => {
+  //#swagger.tags = ['Shelters']
   try {
     const shelterId = new ObjectId(req.params.id);
     const result = await mongodb
@@ -56,6 +58,7 @@ const getSingle = async (req, res, next) => {
 
 // POST method: Add a new shelter
 const addShelter = async (req, res, next) => {
+  //#swagger.tags = ['Shelters']
   try {
     const validatedShelter = await shelterSchema.validateAsync(req.body);
 
@@ -83,6 +86,7 @@ const addShelter = async (req, res, next) => {
 
 // PUT method: Update a shelter by ID
 const updateShelter = async (req, res, next) => {
+  //#swagger.tags = ['Shelters']
   try {
     const shelterId = new ObjectId(req.params.id);
     const validatedShelter = await shelterSchema.validateAsync(req.body);
@@ -112,6 +116,7 @@ const updateShelter = async (req, res, next) => {
 
 // DELETE method: Delete a shelter by ID
 const deleteShelter = async (req, res, next) => {
+  //#swagger.tags = ['Shelters']
   try {
     const shelterId = new ObjectId(req.params.id);
 

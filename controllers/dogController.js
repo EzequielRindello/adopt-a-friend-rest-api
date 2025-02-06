@@ -18,6 +18,7 @@ const dogSchema = Joi.object({
 
 // GET method: Get all dogs
 const getAll = async (req, res, next) => {
+  //#swagger.tags = ['Dogs']
   try {
     const result = await mongodb.getDatabase().db().collection("dogs").find();
     const shelters = await result.toArray();
@@ -30,6 +31,7 @@ const getAll = async (req, res, next) => {
 
 // GET method: Get a single dogs by ID
 const getSingle = async (req, res, next) => {
+  //#swagger.tags = ['Dogs']
   try {
     const dogId = new ObjectId(req.params.id);
     const result = await mongodb
@@ -53,6 +55,7 @@ const getSingle = async (req, res, next) => {
 
 // POST method: Add a new dog
 const addDog = async (req, res, next) => {
+  //#swagger.tags = ['Dogs']
   try {
     const validatedDog = await dogSchema.validateAsync(req.body);
 
@@ -80,6 +83,7 @@ const addDog = async (req, res, next) => {
 
 // PUT method: Update a dog by ID
 const updateDog = async (req, res, next) => {
+  //#swagger.tags = ['Dogs']
   try {
     const dogId = new ObjectId(req.params.id);
     const validatedDog = await dogSchema.validateAsync(req.body);
@@ -109,6 +113,7 @@ const updateDog = async (req, res, next) => {
 
 // DELETE method: Delete a dog by ID
 const deleteDog = async (req, res, next) => {
+  //#swagger.tags = ['Dogs']
   try {
     const dogId = new ObjectId(req.params.id);
 

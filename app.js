@@ -7,6 +7,7 @@ const createError = require("http-errors");
 
 app.use(bodyParser.json());
 app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Origin",
     "Origin, X-Requested-With, Content-Type, Accept, Z-Key"

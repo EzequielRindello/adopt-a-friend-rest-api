@@ -1,6 +1,9 @@
 const router = require("express").Router();
 
+router.use("/api-docs", require("./swagger.js"));
+
 router.get("/", (req, res) => {
+  //#swagger.tags = ['Home']
   res.send("RESTful API project for managing dog adoptions");
 });
 
