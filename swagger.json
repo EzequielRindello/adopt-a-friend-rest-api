@@ -7,15 +7,11 @@
   },
   "host": "adopt-a-friend-rest-api.onrender.com",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
     "/": {
       "get": {
-        "tags": [
-          "Home"
-        ],
+        "tags": ["Home"],
         "description": "",
         "responses": {
           "200": {
@@ -36,13 +32,9 @@
     },
     "/dogs/": {
       "get": {
-        "tags": [
-          "Dogs"
-        ],
+        "tags": ["Dogs"],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -50,10 +42,45 @@
         }
       },
       "post": {
-        "tags": [
-          "Dogs"
-        ],
+        "tags": ["Dogs"],
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Dog object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "breed": { "type": "string", "minLength": 3 },
+                "age": { "type": "integer", "minimum": 0 },
+                "size": {
+                  "type": "string",
+                  "enum": ["Small", "Medium", "Large"]
+                },
+                "shelterId": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{24}$"
+                },
+                "adopted": { "type": "boolean" },
+                "description": { "type": "string", "minLength": 10 },
+                "vaccinated": { "type": "boolean" }
+              },
+              "required": [
+                "name",
+                "breed",
+                "age",
+                "size",
+                "shelterId",
+                "adopted",
+                "description",
+                "vaccinated"
+              ]
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -63,13 +90,9 @@
     },
     "/dogs/{id}": {
       "get": {
-        "tags": [
-          "Dogs"
-        ],
+        "tags": ["Dogs"],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
@@ -85,16 +108,53 @@
         }
       },
       "put": {
-        "tags": [
-          "Dogs"
-        ],
+        "tags": ["Dogs"],
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "description": "MongoDB ObjectId of the dog",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-fA-F0-9]{24}$"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Dog object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "minLength": 1 },
+                "breed": { "type": "string", "minLength": 3 },
+                "age": { "type": "integer", "minimum": 0 },
+                "size": {
+                  "type": "string",
+                  "enum": ["Small", "Medium", "Large"]
+                },
+                "shelterId": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{24}$"
+                },
+                "adopted": { "type": "boolean" },
+                "description": { "type": "string", "minLength": 10 },
+                "vaccinated": { "type": "boolean" }
+              },
+              "required": [
+                "name",
+                "breed",
+                "age",
+                "size",
+                "shelterId",
+                "adopted",
+                "description",
+                "vaccinated"
+              ]
+            }
           }
         ],
         "responses": {
@@ -104,9 +164,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Dogs"
-        ],
+        "tags": ["Dogs"],
         "description": "",
         "parameters": [
           {
@@ -125,13 +183,9 @@
     },
     "/shelters/": {
       "get": {
-        "tags": [
-          "Shelters"
-        ],
+        "tags": ["Shelters"],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "responses": {
           "200": {
             "description": "OK"
@@ -139,10 +193,33 @@
         }
       },
       "post": {
-        "tags": [
-          "Shelters"
-        ],
+        "tags": ["Shelters"],
         "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Shelter object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "minLength": 3 },
+                "location": { "type": "string", "minLength": 10 },
+                "number": { "type": "string", "minLength": 10 },
+                "email": { "type": "string", "format": "email" },
+                "availability": { "type": "string", "minLength": 10 }
+              },
+              "required": [
+                "name",
+                "location",
+                "number",
+                "email",
+                "availability"
+              ]
+            }
+          }
+        ],
         "responses": {
           "201": {
             "description": "Created"
@@ -152,13 +229,9 @@
     },
     "/shelters/{id}": {
       "get": {
-        "tags": [
-          "Shelters"
-        ],
+        "tags": ["Shelters"],
         "description": "",
-        "produces": [
-          "application/json"
-        ],
+        "produces": ["application/json"],
         "parameters": [
           {
             "name": "id",
@@ -174,16 +247,41 @@
         }
       },
       "put": {
-        "tags": [
-          "Shelters"
-        ],
+        "tags": ["Shelters"],
         "description": "",
         "parameters": [
           {
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "description": "MongoDB ObjectId of the shelter",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-fA-F0-9]{24}$"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Shelter object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "minLength": 3 },
+                "location": { "type": "string", "minLength": 10 },
+                "number": { "type": "string", "minLength": 10 },
+                "email": { "type": "string", "format": "email" },
+                "availability": { "type": "string", "minLength": 10 }
+              },
+              "required": [
+                "name",
+                "location",
+                "number",
+                "email",
+                "availability"
+              ]
+            }
           }
         ],
         "responses": {
@@ -193,9 +291,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "Shelters"
-        ],
+        "tags": ["Shelters"],
         "description": "",
         "parameters": [
           {
