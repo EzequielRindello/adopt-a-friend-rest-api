@@ -11,4 +11,8 @@ router.use("/dogs", require("./dogs.js"));
 
 router.use("/shelters", require("./shelters.js"));
 
+router.use("/users", require("./users.js"));
+
+router.use("/adoptions", require("./adoptions.js")); 
+
 module.exports = router;

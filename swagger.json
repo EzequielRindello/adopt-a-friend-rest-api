@@ -20,7 +20,7 @@
         }
       }
     },
-    "/api-docs/api-docs": {
+    "/api-docs": {
       "get": {
         "description": "",
         "responses": {
@@ -33,7 +33,7 @@
     "/dogs/": {
       "get": {
         "tags": ["Dogs"],
-        "description": "",
+        "description": "Get all dogs from the database",
         "produces": ["application/json"],
         "responses": {
           "200": {
@@ -43,7 +43,7 @@
       },
       "post": {
         "tags": ["Dogs"],
-        "description": "",
+        "description": "Add a new dog to the database",
         "parameters": [
           {
             "name": "body",
@@ -91,7 +91,7 @@
     "/dogs/{id}": {
       "get": {
         "tags": ["Dogs"],
-        "description": "",
+        "description": "Get a dog by its ID",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -109,7 +109,7 @@
       },
       "put": {
         "tags": ["Dogs"],
-        "description": "",
+        "description": "Update a dog by its ID",
         "parameters": [
           {
             "name": "id",
@@ -165,7 +165,7 @@
       },
       "delete": {
         "tags": ["Dogs"],
-        "description": "",
+        "description": "Delete a dog by its ID",
         "parameters": [
           {
             "name": "id",
@@ -292,6 +292,256 @@
       },
       "delete": {
         "tags": ["Shelters"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": ["Users"],
+        "description": "",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Users"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "User object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "minLength": 3 },
+                "email": { "type": "string", "format": "email" },
+                "password": { "type": "string", "minLength": 6 },
+                "role": { "type": "string", "enum": ["admin", "user"] }
+              },
+              "required": ["name", "email", "password", "role"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": ["Users"],
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Users"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the user",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-fA-F0-9]{24}$"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "User object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string", "minLength": 3 },
+                "email": { "type": "string", "format": "email" },
+                "password": { "type": "string", "minLength": 6 },
+                "role": { "type": "string", "enum": ["admin", "user"] }
+              },
+              "required": ["name", "email", "password", "role"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Users"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/adoptions/": {
+      "get": {
+        "tags": ["Adoptions"],
+        "description": "",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Adoptions"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Adoption object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{24}$"
+                },
+                "dogId": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{24}$"
+                },
+                "adoptionDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["pending", "approved", "rejected"]
+                }
+              },
+              "required": ["userId", "dogId", "adoptionDate", "status"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/adoptions/{id}": {
+      "get": {
+        "tags": ["Adoptions"],
+        "description": "",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Adoptions"],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "MongoDB ObjectId of the adoption",
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-fA-F0-9]{24}$"
+            }
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Adoption object to create or update",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{24}$"
+                },
+                "dogId": {
+                  "type": "string",
+                  "pattern": "^[a-fA-F0-9]{24}$"
+                },
+                "adoptionDate": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "status": {
+                  "type": "string",
+                  "enum": ["pending", "approved", "rejected"]
+                }
+              },
+              "required": ["userId", "dogId", "adoptionDate", "status"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Adoptions"],
         "description": "",
         "parameters": [
           {
