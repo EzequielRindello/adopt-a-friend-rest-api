@@ -19,7 +19,7 @@ router.post(
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return next(createError(400, { errors: errors.array() }));
+        return res.status(400).json({ errors: errors.array() });
       }
 
       const { email, name } = req.body;
@@ -27,11 +27,11 @@ router.post(
       const user = await db.collection("users").findOne({ email });
 
       if (!user) {
-        return next(createError(401, "User not found"));
+        return res.status(401).json({ message: "User not found" });
       }
 
       if (user.name !== name) {
-        return next(createError(401, "Incorrect name"));
+        return res.status(401).json({ message: "Incorrect name" });
       }
 
       const token = jwt.sign(
@@ -55,7 +55,7 @@ router.post("/logout", async (req, res, next) => {
     const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
-      return next(createError(401, "Unauthorized"));
+      return res.status(401).json({ message: "Unauthorized" });
     }
 
     const db = database.getDatabase().db();
