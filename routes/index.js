@@ -15,4 +15,6 @@ router.use("/users", require("./users.js"));
 
 router.use("/adoptions", require("./adoptions.js")); 
 
+router.use("/auth", require("./auth.js"));
+
 module.exports = router;

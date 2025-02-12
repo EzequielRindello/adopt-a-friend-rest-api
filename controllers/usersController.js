@@ -2,13 +2,11 @@ const mongodb = require("../database/database.js");
 const { ObjectId } = require("mongodb");
 const createError = require("http-errors");
 const Joi = require("@hapi/joi");
-const bcrypt = require("bcrypt");
 
 // Define Joi schema for validating user data
 const userSchema = Joi.object({
   name: Joi.string().min(3).required(),
   email: Joi.string().email().required(),
-  password: Joi.string().min(6).required(),
   role: Joi.string().valid("admin", "user").required(),
 });
 
@@ -55,10 +53,6 @@ const addUser = async (req, res, next) => {
   try {
     const validatedUser = await userSchema.validateAsync(req.body);
 
-    // Hash the password before storing
-    const hashedPassword = await bcrypt.hash(validatedUser.password, 10);
-    validatedUser.password = hashedPassword;
-
     const result = await mongodb
       .getDatabase()
       .db()
@@ -87,11 +81,6 @@ const updateUser = async (req, res, next) => {
   try {
     const userId = new ObjectId(req.params.id);
     const validatedUser = await userSchema.validateAsync(req.body);
-
-    // hash the password if it's being updated
-    if (validatedUser.password) {
-      validatedUser.password = await bcrypt.hash(validatedUser.password, 10);
-    }
 
     const result = await mongodb
       .getDatabase()

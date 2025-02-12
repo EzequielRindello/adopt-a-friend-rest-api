@@ -1,22 +1,16 @@
 const express = require("express");
-const router = require("express").Router();
+const dogController = require("../controllers/dogController");
+const { authenticate, isAdmin } = require("../middleware/autenticate.js");
 
-const dogController = require("../controllers/dogController.js");
+const router = express.Router();
 
-//const { isAuthenticated } = require("../middleware/autenticate.js");
-
-// endpoints
+// Public routes
 router.get("/", dogController.getAll);
-
 router.get("/:id", dogController.getSingle);
 
-//router.post("/", isAuthenticated, shelterController.addDog);
-router.post("/", dogController.addDog);
-
-//router.put("/:id", isAuthenticated, shelterController.updateDog);
-router.put("/:id", dogController.updateDog);
-
-//router.delete("/:id", isAuthenticated, shelterController.deleteDog);
-router.delete("/:id", dogController.deleteDog);
+// Protected routes
+router.post("/", authenticate, isAdmin, dogController.addDog);
+router.put("/:id", authenticate, isAdmin, dogController.updateDog);
+router.delete("/:id", authenticate, isAdmin, dogController.deleteDog);
 
 module.exports = router;
