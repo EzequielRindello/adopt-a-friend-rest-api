@@ -555,6 +555,59 @@
           }
         }
       }
+    },
+    "/login": {
+      "post": {
+        "description": "Generates a JWT token for the authenticated user.",
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "User's email address",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "usuario@example.com"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "User's full name",
+            "schema": {
+              "type": "string",
+              "minLength": 3,
+              "example": "Juan Pérez"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "usuario@example.com"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 3,
+                    "example": "Juan Pérez"
+                  }
+                },
+                "required": ["email", "name"]
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
