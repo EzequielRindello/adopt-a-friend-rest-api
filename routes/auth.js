@@ -1,11 +1,16 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { body, validationResult } = require("express-validator");
 const createError = require("http-errors");
 const database = require("../database/database");
+const Joi = require("@hapi/joi");
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;
+
+const loginSchema = Joi.object({
+  email: Joi.string().email().required(),
+  name: Joi.string().min(3).required(),
+});
 
 router.get("/", (req, res) => {
   res.send("Auth route, please use /login to login or /register to register");
@@ -14,15 +19,14 @@ router.get("/", (req, res) => {
 router.post(
   //#swagger.tags = ['Auth']
   "/login",
-  [body("email").isEmail(), body("name").isLength({ min: 3 })],
   async (req, res, next) => {
     try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+      const { error, value } = loginSchema.validate(req.body);
+      if (error) {
+        return res.status(400).json({ errors: error.details });
       }
 
-      const { email, name } = req.body;
+      const { email, name } = value;
       const db = database.getDatabase().db();
       const user = await db.collection("users").findOne({ email });
 
