@@ -661,7 +661,8 @@
     "/auth/login": {
       "post": {
         "tags": ["Auth"],
-        "description": "User login",
+        "summary": "User login",
+        "description": "Login using name and email",
         "requestBody": {
           "required": true,
           "content": {
@@ -669,31 +670,48 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "name": {
-                    "type": "string",
-                    "minLength": 3,
-                    "example": "Juan Pérez"
-                  },
                   "email": {
                     "type": "string",
                     "format": "email",
                     "example": "juanperez@example.com"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 3,
+                    "example": "Juan Pérez"
                   }
                 },
-                "required": ["name", "email"]
+                "required": ["email", "name"]
               }
             }
           }
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Successful login",
+            "content": {
+              "application/json": {
+                "example": {
+                  "token": "your-jwt-token-here"
+                }
+              }
+            }
           },
           "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
+            "description": "Bad Request - Invalid input",
+            "content": {
+              "application/json": {
+                "example": {
+                  "errors": [
+                    {
+                      "msg": "Invalid email",
+                      "param": "email",
+                      "location": "body"
+                    }
+                  ]
+                }
+              }
+            }
           }
         }
       }
