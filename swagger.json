@@ -661,30 +661,7 @@
     "/auth/login": {
       "post": {
         "tags": ["Auth"],
-        "description": "Login using name and email",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email",
-                    "example": "juanperez@example.com"
-                  },
-                  "name": {
-                    "type": "string",
-                    "minLength": 3,
-                    "example": "Juan Pérez"
-                  }
-                },
-                "required": ["email", "name"]
-              }
-            }
-          }
-        },
+        "description": "",
         "parameters": [
           {
             "name": "email",
@@ -711,30 +688,13 @@
         ],
         "responses": {
           "200": {
-            "description": "Successful login",
-            "content": {
-              "application/json": {
-                "example": {
-                  "token": "your-jwt-token-here"
-                }
-              }
-            }
+            "description": "OK"
           },
           "400": {
-            "description": "Bad Request - Invalid input",
-            "content": {
-              "application/json": {
-                "example": {
-                  "errors": [
-                    {
-                      "msg": "Invalid email",
-                      "param": "email",
-                      "location": "body"
-                    }
-                  ]
-                }
-              }
-            }
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
@@ -753,6 +713,9 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
