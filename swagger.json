@@ -661,34 +661,39 @@
     "/auth/login": {
       "post": {
         "tags": ["Auth"],
-        "description": "",
-        "parameters": [
-          {
-            "name": "name",
-            "in": "query",
-            "required": true,
-            "description": "User's full name",
-            "schema": {
-              "type": "string",
-              "minLength": 3,
-              "example": "Juan Pérez"
-            }
-          },
-          {
-            "name": "email",
-            "in": "query",
-            "required": true,
-            "description": "User's email address",
-            "schema": {
-              "type": "string",
-              "format": "email",
-              "example": "usuario@example.com"
+        "description": "User login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "minLength": 3,
+                    "example": "Juan Pérez"
+                  },
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "juanperez@example.com"
+                  }
+                },
+                "required": ["name", "email"]
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
           }
         }
       }
