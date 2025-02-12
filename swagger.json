@@ -661,7 +661,6 @@
     "/auth/login": {
       "post": {
         "tags": ["Auth"],
-        "summary": "User login",
         "description": "Login using name and email",
         "requestBody": {
           "required": true,
@@ -686,6 +685,30 @@
             }
           }
         },
+        "parameters": [
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "User's email address",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "usuario@example.com"
+            }
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "description": "User's full name",
+            "schema": {
+              "type": "string",
+              "minLength": 3,
+              "example": "Juan Pérez"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successful login",
