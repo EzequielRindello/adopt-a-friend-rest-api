@@ -664,17 +664,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "email",
-            "in": "query",
-            "required": true,
-            "description": "User's email address",
-            "schema": {
-              "type": "string",
-              "format": "email",
-              "example": "usuario@example.com"
-            }
-          },
-          {
             "name": "name",
             "in": "query",
             "required": true,
@@ -683,6 +672,17 @@
               "type": "string",
               "minLength": 3,
               "example": "Juan Pérez"
+            }
+          },
+          {
+            "name": "email",
+            "in": "query",
+            "required": true,
+            "description": "User's email address",
+            "schema": {
+              "type": "string",
+              "format": "email",
+              "example": "usuario@example.com"
             }
           }
         ],
