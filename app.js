@@ -3,10 +3,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 const database = require("./database/database.js");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const createError = require("http-errors");
 const cors = require("cors");
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
