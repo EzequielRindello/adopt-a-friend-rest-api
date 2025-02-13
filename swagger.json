@@ -661,28 +661,28 @@
     "/auth/login": {
       "post": {
         "tags": ["Auth"],
-        "description": "",
+        "description": "User login",
         "parameters": [
           {
-            "name": "email",
+            "name": "body",
             "in": "body",
             "required": true,
-            "description": "User's email address",
+            "description": "User credentials",
             "schema": {
-              "type": "string",
-              "format": "email",
-              "example": "usuario@example.com"
-            }
-          },
-          {
-            "name": "name",
-            "in": "body",
-            "required": true,
-            "description": "User's full name",
-            "schema": {
-              "type": "string",
-              "minLength": 3,
-              "example": "Juan Pérez"
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "example": "usuario@example.com"
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 3,
+                  "example": "Juan Pérez"
+                }
+              },
+              "required": ["email", "name"]
             }
           }
         ],
