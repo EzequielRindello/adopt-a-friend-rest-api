@@ -665,7 +665,7 @@
         "parameters": [
           {
             "name": "email",
-            "in": "query",
+            "in": "body",
             "required": true,
             "description": "User's email address",
             "schema": {
@@ -676,7 +676,7 @@
           },
           {
             "name": "name",
-            "in": "query",
+            "in": "body",
             "required": true,
             "description": "User's full name",
             "schema": {
